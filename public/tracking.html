@@ -70,23 +70,33 @@
             });
         }
 
-        // 4. 1초마다 백엔드를 찔러서 마커를 이동시키는 함수
-        function updateRealTimeLocation() {
-            fetch(`https://api.rimo-app.com/api/tracking/emergency/location/${trackingId}`)
-                .then(response => {
-                    if (!response.ok) throw new Error("위치 정보 갱신 실패");
-                    return response.json();
-                })
-                .then(data => {
-                    currentLat = data.lat;
-                    currentLng = data.lng;
-
-                    var newPosition = new kakao.maps.LatLng(currentLat, currentLng);
-                    marker.setPosition(newPosition);
-                    map.panTo(newPosition); 
-                })
-                .catch(error => console.error('위치 업데이트 실패:', error));
+// 4. 1초마다 백엔드를 찔러서 마커를 이동시키는 함수 (캐시 완벽 차단 적용)
+function updateRealTimeLocation() {
+    // 💡 URL 끝에 현재 시간(timestamp)을 붙여서 매번 완전히 새로운 주소인 것처럼 브라우저를 속입니다!
+    const now = new Date().getTime();
+    
+    fetch(`https://api.rimo-app.com/api/tracking/emergency/location/${trackingId}?t=${now}`, {
+        method: 'GET',
+        cache: 'no-store', // 브라우저 캐시를 무시하는 강력한 옵션
+        headers: {
+            'Cache-Control': 'no-cache',
+            'Pragma': 'no-cache'
         }
+    })
+        .then(response => {
+            if (!response.ok) throw new Error("위치 정보 갱신 실패");
+            return response.json();
+        })
+        .then(data => {
+            currentLat = data.lat;
+            currentLng = data.lng;
+
+            var newPosition = new kakao.maps.LatLng(currentLat, currentLng);
+            marker.setPosition(newPosition);
+            map.panTo(newPosition); 
+        })
+        .catch(error => console.error('위치 업데이트 실패:', error));
+}
     </script>
 </body>
 </html>
