@@ -70,11 +70,11 @@
             });
         }
 
-// 4. 1초마다 백엔드를 찔러서 마커를 이동시키는 함수 (CORS 충돌 원인 헤더 제거 완료)
+// 4. 1초마다 백엔드를 찔러서 마커를 이동시키는 함수
 function updateRealTimeLocation() {
     const now = new Date().getTime();
     
-    // 헤더를 제거하여 불필요한 CORS Preflight(사전요청) 발생을 차단하고 단순 GET 요청으로 통신합니다.
+    // 단순 GET 요청으로 브라우저 사전 요청(CORS) 오류 방지
     fetch(`https://api.rimo-app.com/api/tracking/emergency/location/${trackingId}?t=${now}`, {
         method: 'GET',
         cache: 'no-store' 
@@ -84,12 +84,15 @@ function updateRealTimeLocation() {
         return response.json();
     })
     .then(data => {
-        currentLat = data.lat;
-        currentLng = data.lng;
+        // 💡 [핵심 방어] 혹시 모를 오류를 막기 위해 숫자로 다시 변환
+        const currentLat = parseFloat(data.lat);
+        const currentLng = parseFloat(data.lng);
 
-        var newPosition = new kakao.maps.LatLng(currentLat, currentLng);
-        marker.setPosition(newPosition);
-        map.panTo(newPosition); 
+        if (!isNaN(currentLat) && !isNaN(currentLng)) {
+            var newPosition = new kakao.maps.LatLng(currentLat, currentLng);
+            marker.setPosition(newPosition);
+            map.panTo(newPosition); 
+        }
     })
     .catch(error => console.error('위치 업데이트 실패:', error));
 }
