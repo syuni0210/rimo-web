@@ -65,7 +65,7 @@
             // 마커 클릭 시 카카오내비 길 안내 이벤트
             kakao.maps.event.addListener(marker, 'click', function() {
                 if (confirm("이 위치로 길 안내를 시작하시겠습니까?")) {
-                    window.location.href = `kakaomap://route?ep=${currentLat},${currentLng}&by=CAR`;
+                    window.location.href = `https://map.kakao.com/link/to/긴급상황위치,${currentLat},${currentLng}`;
                 }
             });
         }
