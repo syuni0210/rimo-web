@@ -280,7 +280,7 @@ export default function App() {
     <main id="top">
       <section className="hero shell">
         <div className="hero-copy">
-          <motion.span className="eyebrow" initial={{opacity:0,y:10}} animate={{opacity:1,y:0}}>AI 기반 안전 귀가 서비스</motion.span>
+          <motion.span className="eyebrow" initial={{opacity:0,y:10}} animate={{opacity:1,y:0}}>안전 귀가 서비스</motion.span>
           <motion.h1 initial={{opacity:0,y:24}} animate={{opacity:1,y:0}} transition={{delay:.08}}>늦은 귀갓길,<br/><em>더 안심할 수 있게.</em></motion.h1>
           <motion.p initial={{opacity:0,y:18}} animate={{opacity:1,y:0}} transition={{delay:.18}}>RIMO는 AI 안전경로 추천부터 안심친구 위치 공유, 이상 상황 확인과 보호자 알림까지 귀가 과정을 하나로 연결합니다.</motion.p>
           <motion.div className="hero-actions" initial={{opacity:0,y:12}} animate={{opacity:1,y:0}} transition={{delay:.28}}><a href="#download" className="primary-btn">QR로 앱 받기 <Icon name="arrow" size={16}/></a><a href="#features" className="secondary-btn">기능 체험하기</a></motion.div>
