@@ -327,7 +327,10 @@ export default function App() {
         <Reveal className="demo-phone-wrap" delay={.08}><PhoneShell className="demo-phone"><video controls playsInline preload="metadata" poster="/demo-poster.svg"><source src="/rimo-demo.mp4" type="video/mp4"/>브라우저가 비디오 재생을 지원하지 않습니다.</video></PhoneShell><div className="demo-caption"><span>RIMO SERVICE DEMO</span><b>처음부터 도착까지, RIMO의 안심 귀가</b></div></Reveal>
       </div></section>
 
-      <section id="download" className="section shell download-section"><Reveal><div className="download-box"><div className="download-copy"><span className="download-kicker">RIMO APP</span><h2>오늘의 귀갓길부터<br/>RIMO와 함께하세요.</h2><p>QR 코드를 스캔해 RIMO를 다운로드하고, 더 안심되는 귀가를 시작해보세요.</p></div><div className="download-actions"><a href="/RIMO.apk" download className="android-download"><small>DOWNLOAD FOR</small><strong>Android</strong></a><div className="qr-wrap"><div className="qr-only"><img src={rimoQr} alt="RIMO Android 앱 다운로드 QR 코드"/></div><span>QR로 다운로드</span></div></div></div></Reveal></section>
+      <section id="download" className="section shell download-section"><Reveal><div className="download-box"><div className="download-copy"><span className="download-kicker">RIMO APP</span><h2>오늘의 귀갓길부터<br/>RIMO와 함께하세요.</h2><p>QR 코드를 스캔해 RIMO를 다운로드하고, 더 안심되는 귀가를 시작해보세요.</p></div><div className="download-actions"><a
+  href="https://download.rimo-app.com/RIMO.apk"
+  className="android-download"
+><small>DOWNLOAD FOR</small><strong>Android</strong></a><div className="qr-wrap"><div className="qr-only"><img src={rimoQr} alt="RIMO Android 앱 다운로드 QR 코드"/></div><span>QR로 다운로드</span></div></div></div></Reveal></section>
     </main>
 
     <footer className="footer shell"><div className="footer-brand"><img src={rimoLogo} alt=""/><b>RIMO</b></div><p>더 안심할 수 있는 귀갓길을 위해.</p><span>© 2026 RIMO</span></footer>
