@@ -261,11 +261,154 @@ function FeaturePhone({ id }) {
   return <PhoneShell className="feature-phone">{components[id]}</PhoneShell>;
 }
 
+
+/* ===== RIMO INSTALL PAGE START ===== */
+
+function InstallPage() {
+  const [downloadStarted, setDownloadStarted] = useState(false);
+
+  return (
+    <main className="install-page">
+      <div className="install-page-bg"/>
+
+      <section className="install-shell">
+
+        <a href="/" className="install-brand">
+          <img src={rimoLogo} alt="RIMO"/>
+          <strong>RIMO</strong>
+        </a>
+
+        <div className="install-card">
+
+          <div className="install-app-head">
+            <img src={rimoLogo} alt="RIMO 앱 아이콘"/>
+
+            <div>
+              <span>RIMO OFFICIAL APP</span>
+              <h1>RIMO for Android</h1>
+              <p>Version 1.0.0 · Android</p>
+            </div>
+          </div>
+
+          <div className="install-copy">
+            <h2>RIMO를 설치하고<br/>안심 귀가를 시작하세요.</h2>
+
+            <p>
+              AI 안전경로, 안심친구 위치 공유,
+              안심지도와 긴급 기능을 모바일에서 이용할 수 있습니다.
+            </p>
+          </div>
+
+          <div className="install-trust">
+            <span>
+              <Icon name="shield" size={16}/>
+              RIMO 공식 배포
+            </span>
+
+            <span>
+              <Icon name="check" size={16}/>
+              HTTPS 보안 연결
+            </span>
+          </div>
+
+          <a
+            href="https://download.rimo-app.com/RIMO.apk"
+            className="install-primary"
+            onClick={() => setDownloadStarted(true)}
+          >
+            <small>ANDROID</small>
+            <strong>앱 설치하기</strong>
+          </a>
+
+          {downloadStarted ? (
+            <div className="install-guide active">
+              <div className="install-guide-icon">
+                <Icon name="check" size={18}/>
+              </div>
+
+              <div>
+                <strong>다운로드가 시작되었습니다.</strong>
+
+                <p>
+                  다운로드가 완료되면 브라우저의
+                  <b> ‘열기’ </b>
+                  또는 다운로드 완료 알림을 눌러주세요.
+                </p>
+
+                <small>
+                  Android 설치 화면이 나타나면 ‘설치’를 선택해주세요.
+                </small>
+              </div>
+            </div>
+          ) : (
+            <div className="install-guide">
+              <div className="install-guide-number">1</div>
+
+              <div>
+                <strong>간편 설치 방법</strong>
+
+                <p>
+                  위의 ‘앱 설치하기’를 누른 후
+                  다운로드 완료 알림에서 <b>‘열기’</b>를 선택해주세요.
+                </p>
+
+                <small>
+                  최초 설치 시 Android에서 브라우저의
+                  앱 설치 권한을 요청할 수 있습니다.
+                </small>
+              </div>
+            </div>
+          )}
+
+          <div className="install-steps">
+
+            <div>
+              <b>01</b>
+              <span>앱 설치하기</span>
+            </div>
+
+            <i>→</i>
+
+            <div>
+              <b>02</b>
+              <span>다운로드 후 열기</span>
+            </div>
+
+            <i>→</i>
+
+            <div>
+              <b>03</b>
+              <span>Android 설치</span>
+            </div>
+
+          </div>
+
+        </div>
+
+        <a href="/" className="install-back">
+          ← RIMO 홈페이지로 돌아가기
+        </a>
+
+        <p className="install-footer">
+          © 2026 RIMO · Official Android Distribution
+        </p>
+
+      </section>
+    </main>
+  );
+}
+
+/* ===== RIMO INSTALL PAGE END ===== */
+
 export default function App() {
   const [activeFeature, setActiveFeature] = useState(0);
   const { scrollYProgress } = useScroll();
   const progress = useSpring(scrollYProgress, { stiffness: 100, damping: 24 });
   const feature = features[activeFeature];
+
+  if (window.location.pathname === "/install") {
+    return <InstallPage />;
+  }
 
   const selectFeatureById = (id, scroll = true) => {
     const i = features.findIndex(f => f.id === id);
@@ -327,10 +470,85 @@ export default function App() {
         <Reveal className="demo-phone-wrap" delay={.08}><PhoneShell className="demo-phone"><video controls playsInline preload="metadata" poster="/demo-poster.svg"><source src="/rimo-demo.mp4" type="video/mp4"/>브라우저가 비디오 재생을 지원하지 않습니다.</video></PhoneShell><div className="demo-caption"><span>RIMO SERVICE DEMO</span><b>처음부터 도착까지, RIMO의 안심 귀가</b></div></Reveal>
       </div></section>
 
-      <section id="download" className="section shell download-section"><Reveal><div className="download-box"><div className="download-copy"><span className="download-kicker">RIMO APP</span><h2>오늘의 귀갓길부터<br/>RIMO와 함께하세요.</h2><p>QR 코드를 스캔해 RIMO를 다운로드하고, 더 안심되는 귀가를 시작해보세요.</p></div><div className="download-actions"><a
-  href="https://download.rimo-app.com/RIMO.apk"
-  className="android-download"
-><small>DOWNLOAD FOR</small><strong>Android</strong></a><div className="qr-wrap"><div className="qr-only"><img src={rimoQr} alt="RIMO Android 앱 다운로드 QR 코드"/></div><span>QR로 다운로드</span></div></div></div></Reveal></section>
+      <section id="download" className="section shell download-section">
+        <Reveal>
+          <div className="download-box">
+
+            <div className="download-copy">
+              <span className="download-kicker">RIMO APP</span>
+
+              <h2>
+                오늘의 귀갓길부터<br/>
+                RIMO와 함께하세요.
+              </h2>
+
+              <p>
+                RIMO 공식 Android 앱을 설치하고,
+                더 안심되는 귀가를 시작해보세요.
+              </p>
+
+              <div className="download-trust">
+                <span>
+                  <Icon name="shield" size={15}/>
+                  RIMO 공식 배포
+                </span>
+
+                <span>
+                  <Icon name="check" size={15}/>
+                  HTTPS 보안 연결
+                </span>
+              </div>
+            </div>
+
+            <div className="download-install-card">
+
+              <div className="download-app-info">
+                <img src={rimoLogo} alt="RIMO"/>
+
+                <div>
+                  <strong>RIMO for Android</strong>
+                  <span>Version 1.0.0 · Android</span>
+                </div>
+              </div>
+
+              <a
+                href="/install"
+                className="android-download"
+              >
+                <small>OFFICIAL ANDROID APP</small>
+                <strong>Android 앱 다운로드</strong>
+              </a>
+
+              <div className="download-qr-row">
+
+                <div className="qr-only">
+                  <img
+                    src={rimoQr}
+                    alt="RIMO 앱 설치 페이지 QR 코드"
+                  />
+                </div>
+
+                <div className="download-qr-copy">
+                  <b>휴대폰에서 설치하기</b>
+
+                  <span>
+                    QR 코드를 스캔하면<br/>
+                    RIMO 공식 설치 페이지로 이동합니다.
+                  </span>
+                </div>
+
+              </div>
+
+              <p className="download-note">
+                다운로드 버튼과 QR 코드는
+                RIMO 공식 Android 설치 페이지로 연결됩니다.
+              </p>
+
+            </div>
+
+          </div>
+        </Reveal>
+      </section>
     </main>
 
     <footer className="footer shell"><div className="footer-brand"><img src={rimoLogo} alt=""/><b>RIMO</b></div><p>더 안심할 수 있는 귀갓길을 위해.</p><span>© 2026 RIMO</span></footer>
